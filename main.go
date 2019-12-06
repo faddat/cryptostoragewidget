@@ -28,7 +28,8 @@ func main() {
 	//initalize account
 	acc := vsys.InitAccount(vsys.Mainnet)
 	acc.BuildFromPrivateKey(pkstring)
-
-	fmt.Println("Chicken")
-
+	b := []byte("Lets test right on mainnet")
+	tx := acc.BuildPayment("ARFvzdhQKJ5GX5haE6UjQHKCaPrL9kCnfiR", 1e8, b)
+	resp, err := vsys.SendPaymentTx(tx)
+	fmt.Println(resp)
 }
