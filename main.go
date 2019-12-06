@@ -33,4 +33,5 @@ func main() {
 	resp, err := vsys.SendPaymentTx(tx)
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Id)
+	fmt.Println(err)
 }
