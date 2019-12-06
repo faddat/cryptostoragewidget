@@ -20,8 +20,8 @@ func main() {
 	//read private key from file
 	privatekey, err := ioutil.ReadFile("privatekey")
 	check(err)
-	fmt.Print(string(privatekey))
 	pkstring := string(privatekey)
+	fmt.Println(pkstring)
 
 	//Do actual, interesting things
 
