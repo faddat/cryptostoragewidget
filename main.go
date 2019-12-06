@@ -22,12 +22,13 @@ func main() {
 	seed, err := ioutil.ReadFile("seed")
 	check(err)
 	seedstring := string(seed)
+	//prints the seed for user verification
 	fmt.Println(seedstring)
 
 
 	//initalize account
 	acc := vsys.InitAccount(vsys.Mainnet)
-	acc.BuildFromSeed(seedstring, 0)
+	acc.BuildFromSeed(seedstring, 1)
 
 	info, err := acc.GetInfo()
 	if err != nil {
