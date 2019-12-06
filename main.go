@@ -19,29 +19,35 @@ func main() {
 	vsys.InitApi("https://wallet.v.systems/api", vsys.Mainnet)
 
 	//read private key from file
-	privatekey, err := ioutil.ReadFile("privatekey")
+	seed, err := ioutil.ReadFile("seed")
 	check(err)
-	pkstring := string(privatekey)
-	fmt.Println(pkstring)
+	seedstring := string(seed)
+	fmt.Println(seedstring)
 
-	//Do actual, interesting things
 
 	//initalize account
 	acc := vsys.InitAccount(vsys.Mainnet)
-	acc.BuildFromPrivateKey(pkstring)
+	acc.BuildFromSeed(seedstring, 0)
+
 	info, err := acc.GetInfo()
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	//Print generated address
+	fmt.Println("Your address is:")
 	fmt.Println(info.Address)
+
 	//b := []byte("Lets test right on mainnet")
 	tx := acc.BuildPayment("ARFWV2aphzfZ5VKLk6xgxPEZhumnSgQBU7y", 1e8, []byte{})
 	resp, err := vsys.SendPaymentTx(tx)
 
+
 	if err != nil {
+		fmt.Println("There's been an error!")
 		fmt.Println(err)
 	}
+
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Id)
 }
