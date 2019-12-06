@@ -28,8 +28,7 @@ func main() {
 
 	//initalize account
 	acc := vsys.InitAccount(vsys.Mainnet)
-	acc.BuildFromSeed(seedstring, 1)
-
+	acc.BuildFromSeed(seedstring, 0)
 	info, err := acc.GetInfo()
 	if err != nil {
 		log.Fatal(err)
