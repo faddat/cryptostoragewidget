@@ -3,15 +3,10 @@ package main
 import (
 	"fmt"
 	"github.com/walkbean/vsys-sdk-go/vsys"
-	"io/ioutil"
 	"log"
+	"github.com/pelletier/go-toml"
 )
 
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
 
 func main() {
 
@@ -24,14 +19,23 @@ func main() {
 	//check(err)
 	//seedstring := string(seed)
 
-	privatekey, err := ioutil.ReadFile("privatekey")
-	check(err)
-	pkstring := string(privatekey)
+	//COMMENTED OUT ALL FILE-READ STUFF FOR NOW, WILL BRING IT BACK LATER
+	//privatekey, err := ioutil.ReadFile("privatekey")
+	//check(err)
+	//pkstring := string(privatekey)
+
+	//Accepts private key as user input for now
+	//reader := bufio.NewReader(os.Stdin)
+	//fmt.Println("Please now paste in your private key")
+	//pkstring, _ := reader.ReadString('\n')
 
 
 	//prints the seed or private key for user verification
-	fmt.Println("Your Private Key is: ", pkstring)
 
+	config, _ := toml.LoadFile("config.toml")
+	pkstring := config.Get("VSYS.privatekey").(string)
+
+	fmt.Println("Your Private Key is: ", pkstring)
 
 	//initalize account
 	acc := vsys.InitAccount(vsys.Mainnet)
@@ -46,8 +50,8 @@ func main() {
 	//Print generated address
 	fmt.Println("Your address is: ", info.Address)
 
-	//b := []byte("Lets test right on mainnet")
-	tx := acc.BuildPayment("ARFWV2aphzfZ5VKLk6xgxPEZhumnSgQBU7y", 1e6, []byte{})
+	b := "One more time just for the hell of it"
+	tx := acc.BuildPayment("ARFWV2aphzfZ5VKLk6xgxPEZhumnSgQBU7y", 1e6, b)
 	resp, err := vsys.SendPaymentTx(tx)
 
 
