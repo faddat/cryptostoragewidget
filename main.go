@@ -13,22 +13,6 @@ func main() {
 	//Connect to VSYS public API
 	vsys.InitApi("https://wallet.v.systems/api", vsys.Mainnet)
 
-	//COMMENTED OUT SEED STUFF
-	//read private key from file
-	//seed, err := ioutil.ReadFile("seed")
-	//check(err)
-	//seedstring := string(seed)
-
-	//COMMENTED OUT ALL FILE-READ STUFF FOR NOW, WILL BRING IT BACK LATER
-	//privatekey, err := ioutil.ReadFile("privatekey")
-	//check(err)
-	//pkstring := string(privatekey)
-
-	//Accepts private key as user input for now
-	//reader := bufio.NewReader(os.Stdin)
-	//fmt.Println("Please now paste in your private key")
-	//pkstring, _ := reader.ReadString('\n')
-
 
 	//prints the seed or private key for user verification
 
