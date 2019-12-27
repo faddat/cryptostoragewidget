@@ -14,12 +14,13 @@ func main() {
 	vsys.InitApi("https://wallet.v.systems/api", vsys.Mainnet)
 
 
-	//prints the seed or private key for user verification
-
+	//loads the private key from config.toml
 	config, _ := toml.LoadFile("config.toml")
 	pkstring := config.Get("VSYS.privatekey").(string)
+	//b := config.Get("VSYS.prediction").(string)
 
-	fmt.Println("Your Private Key is: ", pkstring)
+	//prints private key to terminal for verificaqtion
+	//fmt.Println("Your Private Key is: ", pkstring)
 
 	//initalize account
 	acc := vsys.InitAccount(vsys.Mainnet)
@@ -34,16 +35,15 @@ func main() {
 	//Print generated address
 	fmt.Println("Your address is: ", info.Address)
 
-	b := "One more time just for the hell of it"
-	tx := acc.BuildPayment("ARFWV2aphzfZ5VKLk6xgxPEZhumnSgQBU7y", 1e6, b)
-	resp, err := vsys.SendPaymentTx(tx)
-
-
-	if err != nil {
-		fmt.Println("There's been an error!")
-		fmt.Println(err)
+	for i := 1; i<=5; i++ {
+		z := string(i)
+		tx := acc.BuildPayment("ARFWV2aphzfZ5VKLk6xgxPEZhumnSgQBU7y", 1e6, z)
+		resp, err := vsys.SendPaymentTx(tx)
+		if err != nil {
+			fmt.Println("There's been an error!")
+			fmt.Println(err)
+		}
+		fmt.Println(resp.Error)
+		fmt.Println(resp.Id)
 	}
-
-	fmt.Println(resp.Error)
-	fmt.Println(resp.Id)
 }
